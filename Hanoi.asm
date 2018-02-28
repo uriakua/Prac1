@@ -6,15 +6,31 @@
 	addi $a2, $zero, 0x10010020	#second rod
 	addi $a3, $zero, 0x10010040	#third rod
 	
-	addi $s0, $zero, 8	#number of disks n
+	addi $s0, $zero, 3	#number of disks n
+	add $t0, $s0, $zero
+	addi $t9, $zero, 1
 				
 fillrod:	
 	#fill the first rod with n disk 			
-	sw $s0, 0($a1)			#store disk n, n-1, n-2, n-3, n... on first pole
-	addi $s0, $s0, -1		#decrease number of disk by one n-1
+	sw $t0, 0($a1)			#store disk n, n-1, n-2, n-3, n... on first pole
+	addi $t0, $t0, -1		#decrease number of disk by one n-1
 	addi $a1, $a1, 4		#move to next space on memory
-	bne $s0, $zero, fillrod		#if n != 0 return to fillrod until all disks are stored on rod	 
-				
+	bne $t0, $zero, fillrod		#if n != 0 return to fillrod until all disks are stored on first rod	 
 	
-exit
+	jal hanoi		
+	j exit
+hanoi:
+
+	addi $sp, $sp, -8	# reserve 2 spaces on stack 
+	sw $ra, 0($sp)		# store return address in stack
+	sw $s0, 4($sp)		# store number of discs in stack  #towers dissapear
+		
+	beq $s0,$t9, baseCase	# while n !=0 do hanoi
+		
+				
+baseCase:
+	
+
+exit:
+
 	
