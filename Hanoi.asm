@@ -21,7 +21,7 @@ fillrod:
 	j exit
 	
 saveStack:
-	#move discs from A to be using C as an auxiliar 
+	#move discs from A to be using C as an aux
 	addi $sp, $sp, -8	# reserve 2 spaces on stack 
 	sw $ra, 0($sp)		# store return address in stack
 	sw $s0, 4($sp)		# store number of discs in stack  #towers dissapear
