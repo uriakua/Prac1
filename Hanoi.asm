@@ -18,18 +18,26 @@ fillrod:
 	bne $t0, $zero, fillrod		#if n != 0 return to fillrod until all disks are stored on first rod	 
 	
 	jal hanoi		
-	j exit
+	#j exit
 hanoi:
 
 	addi $sp, $sp, -8	# reserve 2 spaces on stack 
 	sw $ra, 0($sp)		# store return address in stack
 	sw $s0, 4($sp)		# store number of discs in stack  #towers dissapear
-		
-	beq $s0,$t9, baseCase	# while n !=0 do hanoi
+	sw $t5, 8($a1)		#this is only used to show the rods and discs at all times
 		
 				
-baseCase:
+	beq $s0,$t9, baseCase	# if number of discs == 1, jump to base case
+		
+				
 	
+	
+
+baseCase:
+
+
+	
+
 
 exit:
 
