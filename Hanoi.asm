@@ -67,7 +67,7 @@ moveAtoB:
 	lw $s0, 4($sp)		# load number of discs
 	addi $s0, $s0, -1	# number of discs -1
 	
-	beq $s0, $zero, baseCase
+	#beq $s0, $zero, baseCase
 moveBtoA:	
 	add $t1, $a1, $zero	# save on temp1 the value of old A	
 	add $a1, $a2, $zero	# Fill A with B
