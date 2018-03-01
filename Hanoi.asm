@@ -6,9 +6,9 @@
 	addi $a2, $zero, 0x10010020	#second rod	B, aux
 	addi $a3, $zero, 0x10010040	#third rod	C, destiny
 	
-	addi $s0, $zero, 6	# number of discs n
+	addi $s0, $zero, 4	# number of discs n
 	add $t0, $s0, $zero	# number of discs on A
-	addi $t9, $zero, 1	# this is used for the flag as a slti
+	addi $t4, $zero, 1	# this is used for the flag as a slti
 				
 fillrod:	
 	#fill the first rod with n disk 			
@@ -26,13 +26,13 @@ saveStack:
 	sw $ra, 0($sp)		# store return address in stack
 	sw $s0, 4($sp)		# store number of discs in stack  #towers dissapear
 	
-	sw $t5, 8($a1)		#this is only used to show the rods and discs at all times
+	#sw $t5, 8($a1)		#this is only used to show the rods and discs at all times
 		
 				
-	beq $s0,$t9, printDiscs	# when all discs from A are moved to B go to printDiscs 
+	beq $s0,$t4, printDiscs	# when all discs from A are moved to B go to printDiscs 
 				
 	addi $s0, $s0, -1	# number of discs -1 
-
+	
 moveBtoC:		
 	add $t1, $a2, $zero 	# store old B in temp 1
 	add $a2, $a3, $zero	# move C to B
@@ -40,7 +40,7 @@ moveBtoC:
 		
 	jal saveStack		#  saveStack
 	
-	add $t8, $t8, $t9	# recursion indicator
+	add $t8, $t8, $t4	# flag indicator
 	
 	add $t1, $a2, $zero	# Store old B on T1	
 	add $a2, $a3, $zero	# Move C to B	
@@ -67,6 +67,7 @@ moveAtoB:
 	lw $s0, 4($sp)		# load number of discs
 	addi $s0, $s0, -1	# number of discs -1
 	
+	beq $s0, $zero, baseCase
 moveBtoA:	
 	add $t1, $a1, $zero	# save on temp1 the value of old A	
 	add $a1, $a2, $zero	# Fill A with B
@@ -80,11 +81,12 @@ moveBtoA:
 	add $a1, $a2, $zero	# move B to A	
 	add $a2, $t2, $zero	# move old A to B	
 	
-	addi $sp, $sp, 8	# give space back to stack
+	addi $sp, $sp, 8	# move to previous space on stack
 	
 	jr $ra			# back to register address
 
-#baseCase:
+baseCase:
+	
 	
 
 exit:
