@@ -37,7 +37,7 @@ moveBtoC:
 	# move B to C
 	sub $s0, $s0, $a3	# number of discs -1 
 	add $t1, $a1, $zero 	# store old B in temp 1
-	add $a1, $a2, $zero	# move C to B
+	add $a1, $a2, $zero	# move B to C
 	add $a2, $t1, $zero	# move old B to C	
 		
 	jal saveStack		#  saveStack
@@ -57,7 +57,7 @@ printDiscs:
 	sw $zero, 0($a0)	# clean n-1 from A
 	sw $t3, 0($a2)		# store in temp 3 C (move A to C)
 	add $a2, $a2, $s2	# move to next value on C
-	bne $t5, $zero, resetFlag	# while temp 8 != 0 do go to move A to B resetFlag label
+	bne $t5, $zero, resetFlag	# while temp 5 != 0 do go to  resetFlag label
 	
 	add $sp, $s1, $sp	# return to previos space on stack
 	jr $ra			# jump to return address
